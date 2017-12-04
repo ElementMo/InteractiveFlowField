@@ -34,7 +34,6 @@ public void setup()
   op = new OscP5(this, 8000);
   kinect = new KinectPV2(this);
   kinect.enableSkeletonColorMap(true);
-  kinect.enableBodyTrackImg(true);
   kinect.enableColorImg(true);
   kinect.init();
   DwPixelFlow context = new DwPixelFlow(this);
@@ -55,7 +54,7 @@ public void setup()
 public void draw() {
 
   background(0);
-  //image(kinect.getColorImage(), 0, 0, 1920, 1080);
+  //image(kinect.getColorImage(), 0, 0, width, height);
   fluid.addCallback_FluiData(new DwFluid2D.FluidData() 
   {
     public void update(DwFluid2D fluid) {
@@ -67,10 +66,10 @@ public void draw() {
           if (skeleton.isTracked()) 
           {
             joints = skeleton.getJoints();
-            float rx = map(joints[KinectPV2.JointType_HandRight].getX(), 0, 1920, 0, fakex);
-            float ry = fakey-map(joints[KinectPV2.JointType_HandRight].getY(), 0, 1080, 0, fakey);
-            float lx = map(joints[KinectPV2.JointType_HandLeft].getX(), 0, 1920, 0, fakex);
-            float ly = fakey-map(joints[KinectPV2.JointType_HandLeft].getY(), 0, 1080, 0, fakey);
+            float rx = map(joints[KinectPV2.JointType_HandRight].getX(), 0, width, 0, fakex);
+            float ry = fakey-map(joints[KinectPV2.JointType_HandRight].getY(), 0, height, 0, fakey);
+            float lx = map(joints[KinectPV2.JointType_HandLeft].getX(), 0, width, 0, fakex);
+            float ly = fakey-map(joints[KinectPV2.JointType_HandLeft].getY(), 0, height, 0, fakey);
 
 
             float rvx = (rx-rpre.x)*10;
@@ -100,7 +99,7 @@ public void draw() {
   pg_fluid.background(0);
   pg_fluid.endDraw();
   fluid.renderFluidTextures(pg_fluid, 0);
-  image(pg_fluid, 0, 0, 1920, 1080);
+  image(pg_fluid, 0, 0, width, height);
 }
 
 void drawJoint(KJoint[] joints, int jointType) {
