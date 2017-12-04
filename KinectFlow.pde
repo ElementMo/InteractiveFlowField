@@ -26,7 +26,7 @@ float radin =2;
 float radout =10;
 public void settings()
 {
-  size(1920, 1080, P2D);
+  fullScreen(P2D);
 }
 
 public void setup() 
